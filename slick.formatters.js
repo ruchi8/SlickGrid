@@ -16,7 +16,8 @@
         "PercentComplete": PercentCompleteFormatter,
         "PercentCompleteBar": PercentCompleteBarFormatter,
         "YesNo": YesNoFormatter,
-        "Checkmark": CheckmarkFormatter
+        "Checkmark": CheckmarkFormatter,
+        "SelectCellFormatter": SelectCellFormatter
       }
     }
   });
@@ -30,7 +31,21 @@
       return "<span style='color:green'>" + value + "%</span>";
     }
   }
-
+  
+   function SelectCellFormatter(row, cell, value, columnDef, dataContext) {
+        debugger;
+        if (value == null || value === "0") {
+            return "";
+        }
+        var fields = columnDef.options.split(",");
+        for (i in fields) {
+            v = fields[i].split(":");
+            if (value == v[0]) {
+                return v[1];
+            }
+        }
+        return "";
+    }
   function PercentCompleteBarFormatter(row, cell, value, columnDef, dataContext) {
     if (value == null || value === "") {
       return "";
